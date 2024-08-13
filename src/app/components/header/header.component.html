@@ -1,0 +1,47 @@
+<mat-toolbar class="justify-between max-w-7xl mx-auto bg-gradient-to-r from-blue-500 to-purple-500 text-white border-b-4 border-gray-800">
+  <a routerLink="home" class="text-2xl font-bold hover:underline">AA Ecommerce</a>
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon
+      [matBadge]="itemsQuantity"
+      [matBadgeHidden]="!itemsQuantity"
+      matBadgeColor="warn"
+      matBadgePosition="above after"
+      class="text-white text-3xl hover:bg-white hover:text-blue-500 transition duration-300"
+      >shopping_cart</mat-icon
+    >
+  </button>
+  <mat-menu #menu="matMenu" class="bg-white text-black p-0 shadow-lg rounded-lg">
+    <div class="p-4 divide-y divide-gray-200">
+      <div class="pb-4 flex justify-between items-center">
+        <span class="text-lg font-semibold">{{ cart.items.length }} items</span>
+        <a routerLink="cart" class="text-blue-600 font-semibold hover:underline">View Cart</a>
+      </div>
+      <div *ngIf="cart.items.length" class="py-4">
+        <div *ngFor="let item of cart.items" class="flex justify-between font-medium mb-3">
+          <span>{{ item.name }} x {{ item.quantity }}</span>
+          <span class="font-bold">{{ item.price | currency }}</span>
+        </div>
+      </div>
+      <div class="flex justify-between py-4 font-medium border-t border-gray-200">
+        <span>Total:</span>
+        <span class="font-bold text-xl">{{ getTotal(cart.items) | currency }}</span>
+      </div>
+      <div class="pt-4 flex justify-between">
+        <button
+          (click)="onClearCart()"
+          class="bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-md hover:bg-red-700 transition duration-300"
+          aria-label="Clear Cart"
+        >
+          <mat-icon>remove_shopping_cart</mat-icon>
+        </button>
+        <button
+          routerLink="cart"
+          class="bg-green-600 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-md hover:bg-green-700 transition duration-300"
+          aria-label="Checkout"
+        >
+          <mat-icon>shopping_cart_checkout</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-menu>
+</mat-toolbar>

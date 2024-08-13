@@ -1,0 +1,19 @@
+<mat-expansion-panel *ngIf="categories" class="bg-white shadow-lg rounded-lg overflow-hidden">
+  <mat-expansion-panel-header class="bg-gray-100 text-gray-800 shadow-md">
+    <mat-panel-title class="font-semibold text-lg">CATEGORIES</mat-panel-title>
+  </mat-expansion-panel-header>
+  <mat-selection-list [multiple]="false" class="p-4">
+    <mat-list-option 
+      *ngFor="let category of categories" 
+      [value]="category" 
+      class="rounded-lg hover:bg-gray-200"
+    >
+      <button 
+        (click)="onShowCategory(category)" 
+        class="w-full text-left py-2 px-3 text-gray-700 font-medium hover:text-gray-900 transition duration-200 ease-in-out"
+      >
+        {{ category }}
+      </button>
+    </mat-list-option>
+  </mat-selection-list>
+</mat-expansion-panel>

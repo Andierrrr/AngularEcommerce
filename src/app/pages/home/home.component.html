@@ -1,0 +1,39 @@
+<mat-drawer-container
+  [autosize]="true"
+  class="min-h-full max-w-7xl mx-auto border-x border-gray-800 shadow-xl rounded-lg overflow-hidden bg-gray-900"
+>
+  <!-- Sidebar Drawer -->
+  <mat-drawer mode="side" opened class="p-6 bg-gray-800 text-gray-200 shadow-lg">
+    <app-filters (showCategory)="onShowCategory($event)"></app-filters>
+  </mat-drawer>
+
+  <!-- Main Content Area -->
+  <mat-drawer-content class="p-6 bg-gray-900">
+    <!-- Products Header -->
+    <app-products-header
+      (columnsCountChange)="onColumnsCountChange($event)"
+      (itemsCountChange)="onItemsCountChange($event)"
+      (sortChange)="onSortChange($event)"
+      class="mb-6 text-gray-200"
+    ></app-products-header>
+
+    <!-- Products Grid -->
+    <mat-grid-list
+      *ngIf="products && products.length"
+      gutterSize="20"
+      [cols]="cols"
+      [rowHeight]="rowHeight"
+      class="rounded-lg"
+    >
+      <mat-grid-tile *ngFor="let product of products" class="transition transform hover:scale-105">
+        <div
+          (addToCart)="onAddToCart($event)"
+          app-product-box
+          [product]="product"
+          [fullWidthMode]="cols === 1"
+          class="w-full h-full p-4 bg-gray-800 text-gray-200 rounded-lg shadow-lg hover:shadow-black transition duration-300 ease-in-out"
+        ></div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-drawer-content>
+</mat-drawer-container>
